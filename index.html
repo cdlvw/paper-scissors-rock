@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+	<meta charset = "utf-8" />
+	<title>Paper, Scissors, Rock!</title>
+</head>
+
+<body>
+	<script>
+	
+	function computerplay() {
+		randomIndex=Math.floor(Math.random() * materials.length)
+		return computerSelection = materials[randomIndex]
+	}	
+	
+
+	function playerplay(){
+		playerInput = prompt("What is your choice?")
+		return playerSelection = playerInput.toLowerCase()
+	}
+
+	function singleround(computer, player){
+	
+		if((playerSelection == "rock" && computerSelection == "scissors") || (playerSelection == "paper" && computerSelection == "rock") || (playerSelection == "scissors" && computerSelection == "paper")) {
+			winner = "You win!"
+		} else if(playerSelection == computerSelection){
+			winner = "Draw!"
+		} else if(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") {
+			winner = "Woops, something went wrong..."
+		} else { 
+			winner = "You loose!"
+		}
+		
+		selection = playerSelection + computerSelection
+		
+		if(rock.test(selection) && paper.test(selection)){
+			how = "Paper beats rock."
+		} 
+		else if(scissors.test(selection) && paper.test(selection)){
+			how = "Scissors beats paper."
+		} 
+		else if(rock.test(selection) && scissors.test(selection)){
+			how = "Rock beats scissors."
+		} 
+		else {
+			how = ""
+		}
+		
+		return(winner + " " + how)
+	}
+	
+	function game(){
+	
+		playercount = 0
+		computercount = 0
+		
+		for (var counter=0; counter<5; counter++){ 
+			console.log(singleround(computerplay(), playerplay()))
+			if(winner == "You win!"){ playercount = playercount + 1}
+			else if(winner == "You loose!") {computercount = computercount + 1}
+			else {}
+
+			var start = new Date().getTime()
+			for (i = 0; i < 1e7; i++){
+				if(new Date().getTime() - start > 1000) {
+					break}
+			}
+			
+		}
+		
+		score = ("Score is " + playercount + "-" + computercount)
+		if (computercount > playercount) { gamewinner = "Computer wins the game!"}
+		else if (playercount > computercount) { gamewinner = "You won the game!"}
+		else {gamewinner = "The game ended in a draw."}
+		
+		return (score + ", " + gamewinner)
+
+	}
+	
+	const rock=/rock/
+	const scissors=/scissors/
+	const paper=/paper/
+	materials  =["rock", "paper", "scissors"]
+
+	console.log(game())
+	
+	</script>
+</body>
+</html>
