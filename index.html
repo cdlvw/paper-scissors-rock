@@ -6,84 +6,109 @@
 </head>
 
 <body>
-	<script>
+
+<div id="header"><p></p></div>
+
+<div class='end'></div>
+
+<h1>Pick your weapon!</h1>
+<div class='images'>
+	<img src="paper.jpeg">
+	<img src="scissors.jpeg">
+	<img src="rock.jpeg">
+</div>
+
+<div class='buttons'>
+	<button class='paper'>Paper</button>
+	<button class='scissors'>Scissors</button>
+	<button class='rock'>Rock</button>
+</div>
+
+<div class='explanation'><h2></h2></div>
+
+<script>
+
+function computerplay() {
+	randomIndex=Math.floor(Math.random() * materials.length)
+	return computerSelection = materials[randomIndex]
+}	
+
+function singleround(computerSelection, playerSelection, score){
+	if((playerSelection == "rock" && computerSelection == "scissors") || (playerSelection == "paper" && computerSelection == "rock") || (playerSelection == "scissors" && computerSelection == "paper")) {
+		score[2] = "You win!";
+		score[0] = score[0] + 1;
+	} 
+	else if(playerSelection == computerSelection) {score[2] = "Draw!"} 
+	else {
+		score[2] = "You loose!";
+		score[1] = score[1] +1;
+	};
 	
-	function computerplay() {
-		randomIndex=Math.floor(Math.random() * materials.length)
-		return computerSelection = materials[randomIndex]
+	selection = playerSelection + computerSelection;
+	if(rock.test(selection) && paper.test(selection)) {score[3] = "Paper beats rock."} 
+	else if(scissors.test(selection) && paper.test(selection)) {score[3] = "Scissors beats paper."} 
+	else if(rock.test(selection) && scissors.test(selection)) { score[3] = "Rock beats scissors."} 
+	else {score[3] = ""}
+	
+	var score = [score[0], score[1], score[2], score[3]];
+	return(score);
+}
+
+function play(e){
+	const button = document.querySelector(`button[class="${e.target.className}"]`);
+	if(!button) {return} //als er geen button is aangeklikt ga uit de functie
+	const game = singleround(computerplay(), e.target.className, score);
+	
+	
+	const header = document.querySelector('#header');
+	const p = document.createElement('p');
+	p.innerText = ("Your score: " + score[0] + " Computer's score: " + score[1]);
+	header.replaceChild(p, header.firstChild);
+	
+	const explanation = document.querySelector('.explanation');
+	const h2 = document.createElement('h2');
+	h2.innerText = (score[2] + ' ' + score[3]);
+	explanation.replaceChild(h2, explanation.firstChild);
+	
+	if(score[0] == 5 || score[1] ==5) {
+		const endGame = document.querySelector('.end');
+		const message = document.createElement('h3');
+		const playAgain = document.createElement('button');
+		playAgain.innerText = "play again";
+		if(score[0] == 5) {message.innerText = "Yay, you win!"}
+		else{message.innerText = "Aaahw... Computer wins!"};
+		endGame.appendChild(message);
+		endGame.appendChild(playAgain);
+		playAgain.addEventListener("click", restart);
 	}	
-	
+};
 
-	function playerplay(){
-		playerInput = prompt("What is your choice?")
-		return playerSelection = playerInput.toLowerCase()
-	}
+function restart(e){
+	const header = document.querySelector('#header');
+	const explanation = document.querySelector('.explanation');
+	const p = document.querySelector('p');
+	const h2 = document.querySelector('h2');
+	
+	const placeholder1 = document.createElement('p');
+	placeholder1.innerText="Your score: 0 Computer's score: 0";
+	header.replaceChild(placeholder1, p);
+	
+	const placeholder2 = document.createElement('h2');
+	placeholder2.innerText="Good luck!";
+	explanation.replaceChild(placeholder2, h2);
+}
 
-	function singleround(computer, player){
-	
-		if((playerSelection == "rock" && computerSelection == "scissors") || (playerSelection == "paper" && computerSelection == "rock") || (playerSelection == "scissors" && computerSelection == "paper")) {
-			winner = "You win!"
-		} else if(playerSelection == computerSelection){
-			winner = "Draw!"
-		} else if(playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") {
-			winner = "Woops, something went wrong..."
-		} else { 
-			winner = "You loose!"
-		}
-		
-		selection = playerSelection + computerSelection
-		
-		if(rock.test(selection) && paper.test(selection)){
-			how = "Paper beats rock."
-		} 
-		else if(scissors.test(selection) && paper.test(selection)){
-			how = "Scissors beats paper."
-		} 
-		else if(rock.test(selection) && scissors.test(selection)){
-			how = "Rock beats scissors."
-		} 
-		else {
-			how = ""
-		}
-		
-		return(winner + " " + how)
-	}
-	
-	function game(){
-	
-		playercount = 0
-		computercount = 0
-		
-		for (var counter=0; counter<5; counter++){ 
-			console.log(singleround(computerplay(), playerplay()))
-			if(winner == "You win!"){ playercount = playercount + 1}
-			else if(winner == "You loose!") {computercount = computercount + 1}
-			else {}
+const rock=/rock/;
+const scissors=/scissors/;
+const paper=/paper/;
+materials=["rock", "paper", "scissors"];
+var score = [0, 0, '', '']
 
-			var start = new Date().getTime()
-			for (i = 0; i < 1e7; i++){
-				if(new Date().getTime() - start > 1000) {
-					break}
-			}
-			
-		}
-		
-		score = ("Score is " + playercount + "-" + computercount)
-		if (computercount > playercount) { gamewinner = "Computer wins the game!"}
-		else if (playercount > computercount) { gamewinner = "You won the game!"}
-		else {gamewinner = "The game ended in a draw."}
-		
-		return (score + ", " + gamewinner)
+const buttons = Array.from(document.querySelectorAll('button'));
+window.addEventListener('click', play);
 
-	}
-	
-	const rock=/rock/
-	const scissors=/scissors/
-	const paper=/paper/
-	materials  =["rock", "paper", "scissors"]
+</script>
 
-	console.log(game())
-	
-	</script>
 </body>
+
 </html>
