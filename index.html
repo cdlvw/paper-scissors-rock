@@ -104,7 +104,9 @@ function restart(e){
 	placeholder1.innerText="Your score: 0, Computer's score: 0";
 	header.replaceChild(placeholder1, p);
 	
-	explanation.removeChild(h2);
+	const placeholder2 = document.createElement('h2');
+	placeholder2.innerText="";
+	explanation.replaceChild(placeholder2, h2);
 }
 
 const rock=/rock/;
