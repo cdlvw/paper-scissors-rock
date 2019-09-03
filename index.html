@@ -3,6 +3,7 @@
 <head>
 	<meta charset = "utf-8" />
 	<title>Paper, Scissors, Rock!</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -11,12 +12,15 @@
 
 <div class='end'></div>
 
-<h1>Pick your weapon!</h1>
-<div class='images'>
-	<img src="paper.jpeg">
-	<img src="scissors.jpeg">
-	<img src="rock.jpeg">
+<div class='game'>
+	<h1>Pick your weapon!</h1>
+	<div class='images'>
+		<img src="paper.jpeg">
+		<img src="scissors.jpeg">
+		<img src="rock.jpeg">
+	</div>
 </div>
+
 
 <div class='buttons'>
 	<button class='paper'>Paper</button>
@@ -59,19 +63,19 @@ function play(e){
 	if(!button) {return} //als er geen button is aangeklikt ga uit de functie
 	const game = singleround(computerplay(), e.target.className, score);
 	
-	
 	const header = document.querySelector('#header');
-	const p = document.createElement('p');
-	p.innerText = ("Your score: " + score[0] + " Computer's score: " + score[1]);
-	header.replaceChild(p, header.firstChild);
-	
 	const explanation = document.querySelector('.explanation');
+	const p = document.createElement('p');
+	p.innerText = ("Your score: " + score[0] + ", Computer's score: " + score[1]);
+	header.replaceChild(p, header.firstChild);
 	const h2 = document.createElement('h2');
 	h2.innerText = (score[2] + ' ' + score[3]);
 	explanation.replaceChild(h2, explanation.firstChild);
 	
-	if(score[0] == 5 || score[1] ==5) {
+	if((score[0] == 5 || score[1] ==5) && !document.querySelector('.popup')) {
 		const endGame = document.querySelector('.end');
+		endGame.classList.add('popup');
+		
 		const message = document.createElement('h3');
 		const playAgain = document.createElement('button');
 		playAgain.innerText = "play again";
@@ -84,18 +88,23 @@ function play(e){
 };
 
 function restart(e){
+	const endGame = document.querySelector('.end');
+	while (endGame.firstChild) {
+		endGame.removeChild(endGame.firstChild);
+	}
+	endGame.classList.remove('popup');
+	score = [0, 0, '', ''];
+
 	const header = document.querySelector('#header');
 	const explanation = document.querySelector('.explanation');
 	const p = document.querySelector('p');
 	const h2 = document.querySelector('h2');
 	
 	const placeholder1 = document.createElement('p');
-	placeholder1.innerText="Your score: 0 Computer's score: 0";
+	placeholder1.innerText="Your score: 0, Computer's score: 0";
 	header.replaceChild(placeholder1, p);
 	
-	const placeholder2 = document.createElement('h2');
-	placeholder2.innerText="Good luck!";
-	explanation.replaceChild(placeholder2, h2);
+	explanation.removeChild(h2);
 }
 
 const rock=/rock/;
@@ -103,6 +112,12 @@ const scissors=/scissors/;
 const paper=/paper/;
 materials=["rock", "paper", "scissors"];
 var score = [0, 0, '', '']
+	const header = document.querySelector('#header');
+	const p = document.querySelector('p');
+	
+	const placeholder1 = document.createElement('p');
+	placeholder1.innerText="Your score: 0, Computer's score: 0";
+	header.replaceChild(placeholder1, p);
 
 const buttons = Array.from(document.querySelectorAll('button'));
 window.addEventListener('click', play);
