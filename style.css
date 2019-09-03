@@ -1,0 +1,118 @@
+html {
+	font-family: Arial, sans-serif;
+	font-size: 1.5vw;
+}
+
+#header{
+	position:fixed;
+	top:0;
+	right:0;
+	width:100%;
+	height:8vw;
+	background-color:grey;
+}
+
+p{
+	color: white;
+	font-size: 3vw;
+	overflow:hidden;
+	margin: 2.5vw;
+}
+
+.game{
+	position:fixed;
+	height:70%;
+	top:8vw;
+	width:100%;
+	right:0;
+	text-align:center;
+}
+
+.game img{
+	position:relative;
+	max-width:24%;
+	max-height:70%;
+	margin:4vw;
+	float:left;
+	border-style:none;
+	color:transparent;
+	outline:none;
+}
+
+.buttons{
+	position:fixed;
+	height: 70%;
+	top:8vw;
+	width:100%;
+	right:0;
+}
+
+.buttons button{
+	background-color:transparent;
+	width:33.33%;
+	height:100%;
+	float:left;
+	border-style:none;
+	color:transparent;
+	outline:none;
+}
+
+.explanation{
+	position:fixed;
+	bottom:0;
+	right:0;
+	width:100%;
+	text-align:center;
+	background-color:grey;
+	color:white;
+	height:8vw;
+}
+
+.end{
+	transition:background-color 1s;
+	width:0%;
+}
+
+.popup{
+	z-index:+1;
+	background-color:black;
+	color: white;
+	width:100%;
+	top:8vw;
+	height:100%;
+	position:fixed;
+	right:0;
+	text-align:center;
+}
+
+h1{
+	font-style:bold;
+	text-shadow: red 1px 1px 1px;
+	font-size: 5vw;
+	margin-top:1.5vw;
+	margin-bottom:0;
+}
+
+h3{
+	font-size: 10vw;
+	font-style: italic;
+}
+
+h2{
+	font-size:6vw;
+	margin:0;
+	padding:1vw;
+}
+
+.popup button{
+	margin-bottom:5%;
+	background-color:grey;
+	color:white;
+	padding: 5vw;
+	height:10vw;
+	width:30%;
+	border-style:none;
+	font-size:4vw;
+	text-align:center;
+	padding:3vw;
+}
