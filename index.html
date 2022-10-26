@@ -2,130 +2,58 @@
 <html lang = "en">
 <head>
 	<meta charset = "utf-8" />
-	<title>Paper, Scissors, Rock!</title>
+	<title>Rock, Paper, Scissors!</title>
 	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
 </head>
 
 <body>
 
-<div id="header"><p></p></div>
-
-<div class='end'></div>
-
-<div class='game'>
-	<h1>Pick your weapon!</h1>
-	<div class='images'>
-		<img src="paper.jpeg">
-		<img src="scissors.jpeg">
-		<img src="rock.jpeg">
+	<div id="header">
+		<h1>Rock, Paper, Scissors!</h1>
+		<h2>Human vs. Computer</h2>
 	</div>
+
+	<div id="game">
+		<h2> Choose your weapon!</h2>
+		<p>Battle the computer in a game of five rounds</p>
+		<div class="container">
+			<div class="human">
+				<div class="player">
+					<h3>You</h3>
+					<div class="score">
+						<p>Score:</p>
+						<p id="player-score">0</p>
+					</div>
+				</div>
+				<div class="weapons">
+					<img src="rock.jpeg" class=player-weapon id="rock" onclick="playRound('rock')">
+					<img src="paper.jpeg" class=player-weapon id="paper" onclick="playRound('paper')">
+					<img src="scissors.jpeg" class=player-weapon id="scissors" onclick="playRound('scissors')">
+				</div>
+			</div>
+			<div class="computer">
+				<div class="player">
+					<h3>Computer</h3>
+					<div class="score">
+						<p>Score:</p>
+						<p id="computer-score">0</p>
+					</div>
+				</div>
+				<div class="weapons">
+					<img src="rock.jpeg" class=computer-weapon id=computer-rock>
+					<img src="paper.jpeg" class=computer-weapon id=computer-paper>
+					<img src="scissors.jpeg" class=computer-weapon id=computer-scissors>
+					
+				</div>
+			</div>
+		</div>
+		<div class="result"></div>
+	</div>
+
+	<div id="footer"><h3>Copyright &#169 Caya & The Odin Project</h3></div>
+
 </div>
-
-
-<div class='buttons'>
-	<button class='paper'>Paper</button>
-	<button class='scissors'>Scissors</button>
-	<button class='rock'>Rock</button>
-</div>
-
-<div class='explanation'><h2></h2></div>
-
-<script>
-
-function computerplay() {
-	randomIndex=Math.floor(Math.random() * materials.length)
-	return computerSelection = materials[randomIndex]
-}	
-
-function singleround(computerSelection, playerSelection, score){
-	if((playerSelection == "rock" && computerSelection == "scissors") || (playerSelection == "paper" && computerSelection == "rock") || (playerSelection == "scissors" && computerSelection == "paper")) {
-		score[2] = "You win!";
-		score[0] = score[0] + 1;
-	} 
-	else if(playerSelection == computerSelection) {score[2] = "Draw!"} 
-	else {
-		score[2] = "You loose!";
-		score[1] = score[1] +1;
-	};
-	
-	selection = playerSelection + computerSelection;
-	if(rock.test(selection) && paper.test(selection)) {score[3] = "Paper beats rock."} 
-	else if(scissors.test(selection) && paper.test(selection)) {score[3] = "Scissors beats paper."} 
-	else if(rock.test(selection) && scissors.test(selection)) { score[3] = "Rock beats scissors."} 
-	else {score[3] = ""}
-	
-	var score = [score[0], score[1], score[2], score[3]];
-	return(score);
-}
-
-function play(e){
-	const button = document.querySelector(`button[class="${e.target.className}"]`);
-	if(!button) {return} //als er geen button is aangeklikt ga uit de functie
-	const game = singleround(computerplay(), e.target.className, score);
-	
-	const header = document.querySelector('#header');
-	const explanation = document.querySelector('.explanation');
-	const p = document.createElement('p');
-	p.innerText = ("Your score: " + score[0] + ", Computer's score: " + score[1]);
-	header.replaceChild(p, header.firstChild);
-	const h2 = document.createElement('h2');
-	h2.innerText = (score[2] + ' ' + score[3]);
-	explanation.replaceChild(h2, explanation.firstChild);
-	
-	if((score[0] == 5 || score[1] ==5) && !document.querySelector('.popup')) {
-		const endGame = document.querySelector('.end');
-		endGame.classList.add('popup');
-		
-		const message = document.createElement('h3');
-		const playAgain = document.createElement('button');
-		playAgain.innerText = "play again";
-		if(score[0] == 5) {message.innerText = "Yay, you win!"}
-		else{message.innerText = "Aaahw... Computer wins!"};
-		endGame.appendChild(message);
-		endGame.appendChild(playAgain);
-		playAgain.addEventListener("click", restart);
-	}	
-};
-
-function restart(e){
-	const endGame = document.querySelector('.end');
-	while (endGame.firstChild) {
-		endGame.removeChild(endGame.firstChild);
-	}
-	endGame.classList.remove('popup');
-	score = [0, 0, '', ''];
-
-	const header = document.querySelector('#header');
-	const explanation = document.querySelector('.explanation');
-	const p = document.querySelector('p');
-	const h2 = document.querySelector('h2');
-	
-	const placeholder1 = document.createElement('p');
-	placeholder1.innerText="Your score: 0, Computer's score: 0";
-	header.replaceChild(placeholder1, p);
-	
-	const placeholder2 = document.createElement('h2');
-	placeholder2.innerText="";
-	explanation.replaceChild(placeholder2, h2);
-}
-
-const rock=/rock/;
-const scissors=/scissors/;
-const paper=/paper/;
-materials=["rock", "paper", "scissors"];
-var score = [0, 0, '', '']
-	const header = document.querySelector('#header');
-	const p = document.querySelector('p');
-	
-	const placeholder1 = document.createElement('p');
-	placeholder1.innerText="Your score: 0, Computer's score: 0";
-	header.replaceChild(placeholder1, p);
-
-const buttons = Array.from(document.querySelectorAll('button'));
-window.addEventListener('click', play);
-
-</script>
 
 </body>
-
 </html>
